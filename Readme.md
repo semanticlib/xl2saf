@@ -49,7 +49,7 @@ $ cd xl2saf
 
 **Run the conversion script**
 ```
-$ python3 xl2saf.py -h
+$ python xl2saf.py -h
 Usage: xl2saf.py [options]
 
 Options:
@@ -65,11 +65,11 @@ Options:
 
 Try this command for sample data:
 ```
-$ python3 xl2saf.py -f sample_data/Input.xlsx -b sample_data/fulltext -d collection_12
+$ python xl2saf.py -f sample_data/Input.xlsx -b sample_data/fulltext -d collection_12
 ```
 OR
 ```
-$ python3 xl2saf.py --input_file=sample_data/Input.xlsx --base_dir=sample_data/fulltext --items_dir=collection_12
+$ python xl2saf.py --input_file=sample_data/Input.xlsx --base_dir=sample_data/fulltext --items_dir=collection_12
 ```
 
 The above comman should be run for each collection using separate `--input_file` and `--items_dir`.
