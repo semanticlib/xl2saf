@@ -96,7 +96,7 @@ for sheet in wb:
                 data.append(dcvalue)
 
         # create a new XML file with the results
-        xmldata = et.tostring(data, encoding='utf8', method='xml', xml_declaration=True, pretty_print=True)
+        xmldata = et.tostring(data, encoding='UTF-8', method='xml', xml_declaration=True, pretty_print=True)
         item_dc = open(xml_file, "wb")
         item_dc.write(xmldata)
         finished += 1
