@@ -10,11 +10,11 @@ def parse_header(row):
     md_delimit = ''
 
     # Extract the delimiter
-    if re.search('\(', md_element):
+    if re.search(r'\(', md_element):
       (md_element, md_delimit) = re.sub(r'^([^\(]+)\s*\((.+)\)$', r'\1|\2', md_element).split('|')
     
     # Identify the qualifier
-    if re.search('\.', md_element):
+    if re.search(r'\.', md_element):
       (md_element, md_qualifier) = md_element.split(".")
     
     md_item = {
