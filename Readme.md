@@ -1,6 +1,6 @@
 # XL2SAF
 
-**Excel to DSpace [Simple Archive Format (SAF)](https://wiki.duraspace.org/display/DSDOC6x/Importing+and+Exporting+Items+via+Simple+Archive+Format) conversion script**
+**Excel to DSpace [Simple Archive Format (SAF)](https://wiki.lyrasis.org/display/DSDOC7x/Importing+and+Exporting+Items+via+Simple+Archive+Format) conversion script**
 
 #### Dependencies
 Python3 with following dependencies
@@ -9,11 +9,17 @@ Python3 with following dependencies
 
 **Use pip to install dependencies**
 
-On Ubuntu 18 LTS, following should work:
+On Debian/Ubuntu, following should work:
 ```
 $ sudo apt install python3-pip
 $ pip3 install openpyxl lxml
 ```
+
+On Windows, pip3 should already be there. Just install the dependencies:
+```
+C:\> pip3 install openpyxl lxml
+```
+
 
 ## Prepare Source XLSX/Open Office XML (.xlsx)
 The source files must be in [XLSX/Open Office XML](https://www.loc.gov/preservation/digital/formats/fdd/fdd000398.shtml) format. Most spreadsheet applications, including MS Excel, OpenOffice/LibreOffice Calc and Google Sheets, support export to XLSX format.
@@ -35,7 +41,7 @@ Populate the `filenames(;)` column with the full-text files. File names must be 
 Article1.pdf; Slides1.ppt
 ```
 
-See [Metadata and Bitstream Format Registries](https://wiki.duraspace.org/display/DSDOC6x/Metadata+and+Bitstream+Format+Registries) page for available metadata fields.
+See [Metadata and Bitstream Format Registries](https://wiki.lyrasis.org/display/DSDOC7x/Metadata+and+Bitstream+Format+Registries) page for available metadata fields.
 
 Check the [sample input file](./sample_data/Input.xlsx) as an example. Prepare separate input file for each collection.
 
@@ -75,10 +81,10 @@ $ python xl2saf.py --input_file=sample_data/Input.xlsx --base_dir=sample_data/fu
 The above comman should be run for each collection using separate `--input_file` and `--items_dir`.
 
 ## Importing into DSpace
-See detailed instructions in [DSpace Wiki](https://wiki.duraspace.org/display/DSDOC6x/Importing+and+Exporting+Items+via+Simple+Archive+Format):
+See detailed instructions in [DSpace Wiki](https://wiki.lyrasis.org/display/DSDOC7x/Importing+and+Exporting+Items+via+Simple+Archive+Format):
 
 **Using web interface**
-Compress the `--items_dir` into a Zip file to import them using the DSpace web interface. This method is suitable for small datasets.
+Compress the output folder into a Zip file to import them using the DSpace web interface. This method is suitable for small datasets.
 
 **Import from command line**
 Use the command-line tool for large datasets.
