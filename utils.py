@@ -30,8 +30,7 @@ def _parse_header_cell(header_cell_value):
     md_delimit = ''
 
     # Extract the delimiter
-    match = re.match(r'^([^\(]+)\s*\((.+)\)
-, md_element)
+    match = re.match(r'^([^\(]+)\s*\((.+)\)$', md_element)
     if match:
         md_element = match.group(1).strip()
         md_delimit = match.group(2).strip()
