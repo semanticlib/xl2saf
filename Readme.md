@@ -1,5 +1,7 @@
 # XL2SAF
 
+[![Test Status](https://github.com/semanticlib/xl2saf/actions/workflows/test.yml/badge.svg)](https://github.com/semanticlib/xl2saf/actions/workflows/test.yml)
+
 **Excel to DSpace [Simple Archive Format (SAF)](https://wiki.lyrasis.org/display/DSDOC7x/Importing+and+Exporting+Items+via+Simple+Archive+Format) conversion script**
 
 #### Dependencies
