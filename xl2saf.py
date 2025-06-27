@@ -1,9 +1,3 @@
-"""
-Name: xl2saf.py
-Author: Saiful Amin <saiful@semanticconsulting.com>
-Description: Convert Excel spreadsheet into DSpace Simple Archive Format (SAF)
-"""
-
 import os
 import sys
 import shutil

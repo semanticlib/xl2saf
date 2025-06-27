@@ -45,6 +45,20 @@ See [Metadata and Bitstream Format Registries](https://wiki.lyrasis.org/display/
 
 Check the [sample input file](./sample_data/Input.xlsx) as an example. Prepare separate input file for each collection.
 
+## Testing
+
+To ensure the script is working correctly, you can run the included tests. First, install the dependencies:
+
+```
+$ pip install -r requirements.txt
+```
+
+Then, run the tests using the following command:
+
+```
+$ python -m unittest discover
+```
+
 ## Convert to SAF
 
 **Clone this repository**
