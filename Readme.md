@@ -2,7 +2,7 @@
 
 [![Test Status](https://github.com/semanticlib/xl2saf/actions/workflows/test.yml/badge.svg)](https://github.com/semanticlib/xl2saf/actions/workflows/test.yml)
 
-**Excel to DSpace [Simple Archive Format (SAF)](https://wiki.lyrasis.org/display/DSDOC7x/Importing+and+Exporting+Items+via+Simple+Archive+Format) conversion script**
+**Excel to DSpace [Simple Archive Format (SAF)](https://wiki.lyrasis.org/pages/viewpage.action?pageId=104566653) conversion script**
 
 #### Dependencies
 Python3 with following dependencies
@@ -97,7 +97,7 @@ $ python xl2saf.py --input_file=sample_data/Input.xlsx --base_dir=sample_data/fu
 The above comman should be run for each collection using separate `--input_file` and `--items_dir`.
 
 ## Importing into DSpace
-See detailed instructions in [DSpace Wiki](https://wiki.lyrasis.org/display/DSDOC7x/Importing+and+Exporting+Items+via+Simple+Archive+Format):
+See detailed instructions in [DSpace Wiki](https://wiki.lyrasis.org/pages/viewpage.action?pageId=104566653):
 
 **Using web interface**
 Compress the output folder into a Zip file to import them using the DSpace web interface. This method is suitable for small datasets.
