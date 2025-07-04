@@ -68,7 +68,9 @@ cd xl2saf
 
 **Run the conversion script**
 ```bash
-$ python xl2saf.py -h
+python xl2saf.py -h
+```
+```
 Usage: xl2saf.py [options]
 
 options:
@@ -87,9 +89,13 @@ options:
 
 Try this command for sample data:
 ```bash
+python xl2saf.py -f sample_data/Input.xlsx -b sample_data/fulltext
+```
+Or
+```bash
 python xl2saf.py -f sample_data/Input.xlsx -b sample_data/fulltext -d items_import -s 2 -e 10
 ```
-OR
+Or
 ```bash
 python xl2saf.py --input_file=sample_data/Input.xlsx --base_dir=sample_data/fulltext --items_dir=items_import --start=2 --end=10
 ```
