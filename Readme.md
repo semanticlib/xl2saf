@@ -37,12 +37,13 @@ git clone https://github.com/semanticlib/xl2saf.git
 cd xl2saf
 
 # Install dependencies globally (if having sudo access)
+sudo apt install python3-pip
 sudo pip3 install -r requirements.txt
 
 # Alternatively, install dependencies in virtual environment
 python -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ## Usage
