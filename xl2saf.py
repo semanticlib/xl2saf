@@ -10,7 +10,7 @@ from utils import parse_header, get_list, is_valid_date_format
 from config import DEFAULT_ITEMS_DIR, LOG_FILE
 import logging
 
-def process_spreadsheet(xlsx_file, base_dir, items_dir):
+def process_spreadsheet(xlsx_file, base_dir, items_dir, start_row, end_row):
     """
     Processes the entire Excel spreadsheet.
     """
@@ -18,7 +18,7 @@ def process_spreadsheet(xlsx_file, base_dir, items_dir):
         wb = load_workbook(filename=xlsx_file, read_only=True)
         finished_count = 0
         for sheet in wb:
-            finished_count += process_sheet(sheet, base_dir, items_dir)
+            finished_count += process_sheet(sheet, base_dir, items_dir, start_row, end_row)
         print(f"\nPrepared {finished_count} records in '{items_dir}' folder.")
     except FileNotFoundError:
         logging.error(f"Input file not found: {xlsx_file}")
@@ -29,22 +29,28 @@ def process_spreadsheet(xlsx_file, base_dir, items_dir):
         print(f"An unexpected error occurred: {e}")
         sys.exit(1)
 
-def process_sheet(sheet, base_dir, items_dir):
-    """
-    Processes a single sheet in the Excel file.
-    """
+def process_sheet(sheet, base_dir, items_dir, start_row, end_row):
     if not (str(sheet['A1'].value).startswith('dc.') or str(sheet['A1'].value).startswith('filenames')):
         logging.warning(f"Skipping sheet '{sheet.title}': Does not contain a valid header row.")
         print(f"\nSkipping sheet '{sheet.title}': Does not contain a valid header row.")
         return 0
 
-    total_rows = sheet.max_row - 1  # Exclude header
-    print(f"\nProcessing sheet '{sheet.title}': Found {total_rows} row(s).")
+    sheet_max_row = sheet.max_row
+    effective_start = max(start_row, 2)
+    effective_end = min(end_row or sheet_max_row, sheet_max_row)
+
+    if effective_start > effective_end:
+        print(f"\nSkipping sheet '{sheet.title}': No rows to process in the given range.")
+        return 0
+
+    total_rows = effective_end - effective_start + 1
+    print(f"\nProcessing sheet '{sheet.title}': Rows {effective_start} to {effective_end} ({total_rows} row(s)).")
+
     md_header = parse_header(sheet[1])
     finished_count = 0
 
     for row_key, row in tqdm(
-        enumerate(sheet.iter_rows(min_row=2), start=2),
+        enumerate(sheet.iter_rows(min_row=effective_start, max_row=effective_end), start=effective_start),
         total=total_rows,
         desc=f"Sheet: {sheet.title}",
         unit="row",
@@ -172,6 +178,8 @@ def main():
     parser = argparse.ArgumentParser(description="Convert Excel spreadsheet into DSpace Simple Archive Format (SAF)")
     parser.add_argument("-f", "--input_file", dest="xlsx_file", required=True, help="Input XLSX file")
     parser.add_argument("-b", "--base_dir", dest="base_dir", help="Base directory for full-text files")
+    parser.add_argument("-s", "--start", type=int, default=2, help="Start processing from this Excel row (default: 2)")
+    parser.add_argument("-e", "--end", type=int, help="Stop processing at this Excel row (inclusive)")
     parser.add_argument("-d", "--items_dir", dest="items_dir", default=DEFAULT_ITEMS_DIR, help=f"Output directory for converted files (default: {DEFAULT_ITEMS_DIR})")
     parser.add_argument("--log_file", dest="log_file", default=LOG_FILE, help=f"Log file path (default: {LOG_FILE})")
     args = parser.parse_args()
@@ -188,7 +196,7 @@ def main():
 
     os.makedirs(args.items_dir, exist_ok=True)
     
-    process_spreadsheet(args.xlsx_file, args.base_dir, args.items_dir)
+    process_spreadsheet(args.xlsx_file, args.base_dir, args.items_dir, args.start, args.end)
 
 if __name__ == "__main__":
     main()
