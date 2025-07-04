@@ -6,7 +6,7 @@ import lxml.etree as et
 from tqdm import tqdm
 from openpyxl import load_workbook
 from datetime import datetime
-from utils import parse_header, get_list
+from utils import parse_header, get_list, is_valid_date_format
 from config import DEFAULT_ITEMS_DIR, LOG_FILE
 import logging
 
@@ -133,47 +133,6 @@ def process_metadata(data, element, qualifier, delimit, raw_content, row_num, md
         dcvalue = et.Element('dcvalue', attrib={"element": element, "qualifier": qualifier})
         dcvalue.text = value
         data.append(dcvalue)
-
-def is_valid_date_format(date_str):
-    """
-    Validates if a date string is in one of the accepted formats:
-    - YYY or YYYY
-    - YYY-MM or YYYY-MM
-    - YYY-MM-DD or YYYY-MM-DD
-    """
-    import re
-
-    # Basic format check: 3-4 digit year, optional -MM, optional -DD
-    pattern = r'^\d{3,4}(-\d{2})?(-\d{2})?$'
-    if not re.match(pattern, date_str):
-        return False
-
-    try:
-        parts = date_str.split('-')
-        year = int(parts[0])
-        if year < 1 or year > 9999:
-            return False  # Reject anything outside reasonable year range
-
-        if len(parts) > 1:
-            month = int(parts[1])
-            if month < 1 or month > 12:
-                return False
-
-        if len(parts) > 2:
-            day = int(parts[2])
-            if day < 1 or day > 31:
-                return False
-
-            # Optional: Add better checks for day/month validity if needed
-            if len(parts) > 1:
-                from calendar import monthrange
-                _, max_day = monthrange(year if year > 999 else 2000, month)  # use dummy year for 3-digit dates
-                if day > max_day:
-                    return False
-
-        return True
-    except ValueError:
-        return False
 
 def write_dublin_core(data, item_dir):
     """
