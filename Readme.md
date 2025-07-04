@@ -7,25 +7,6 @@
 #### Dependencies
 This script requires Python 3. All dependencies are listed in the `requirements.txt` file.
 
-**Use pip to install dependencies**
-
-On Debian/Ubuntu, following should work:
-```bash
-sudo apt install python3-pip
-sudo pip3 install -r requirements.txt
-```
-Or create venv and install dependencies
-
-On Windows, pip should be part of your Python installation. Just install the dependencies:
-```shell
-C:\> pip install -r requirements.txt
-```
-
-#### Usage
-```shell
-python xl2saf.py -h
-```
-
 ## Prepare Source XLSX/Open Office XML (.xlsx)
 The source files must be in [XLSX/Open Office XML](https://www.loc.gov/preservation/digital/formats/fdd/fdd000398.shtml) format. Most spreadsheet applications, including MS Excel, OpenOffice/LibreOffice Calc and Google Sheets, support export to XLSX format.
 
@@ -50,24 +31,22 @@ See [Metadata and Bitstream Format Registries](https://wiki.lyrasis.org/display/
 
 Check the [sample input file](./sample_data/Input.xlsx) as an example. Prepare separate input file for each collection.
 
-## Testing
-
-To ensure the script is working correctly, you can run the included tests. First, install the dependencies. Then, run the tests using the following command:
-
-```bash
-python -m unittest discover
-```
-
-## Convert to SAF
-
-**Clone this repository**
+## Installation / Setup
 ```bash
 git clone https://github.com/semanticlib/xl2saf.git
 cd xl2saf
+
+# Install dependencies global installation
+sudo pip3 install -r requirements.txt
+
+# Install dependencies in virtual environment
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 ```
 
-**Run the conversion script**
-```bash
+## Usage
+```shell
 python xl2saf.py -h
 ```
 ```
@@ -87,13 +66,9 @@ options:
 
 ```
 
-Try this command for sample data:
+#### Example with sample data:
 ```bash
 python xl2saf.py -f sample_data/Input.xlsx -b sample_data/fulltext
-```
-Or
-```bash
-python xl2saf.py -f sample_data/Input.xlsx -b sample_data/fulltext -d items_import -s 2 -e 10
 ```
 Or
 ```bash
@@ -113,8 +88,16 @@ Use the command-line tool for large datasets.
 
 Example command:
 ```bash
-cd /path/to/dspace
+cd /path/to/dspace/backend
 bin/dspace import --add --eperson=joe@user.com --collection=1/12 --source=items_import --mapfile=mapfile
+```
+
+## Testing
+
+To ensure the script is working correctly, you can run the included tests. First, install the dependencies. Then, run the tests using the following command:
+
+```bash
+python -m unittest discover
 ```
 
 Create an issue to report any problem.
