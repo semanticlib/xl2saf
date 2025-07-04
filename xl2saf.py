@@ -9,9 +9,6 @@ from utils import parse_header, get_list
 from config import DEFAULT_ITEMS_DIR, LOG_FILE
 import logging
 
-# Configure logging
-logging.basicConfig(filename=LOG_FILE, level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
 def process_spreadsheet(xlsx_file, base_dir, items_dir):
     """
     Processes the entire Excel spreadsheet.
@@ -210,10 +207,15 @@ def main():
     parser.add_argument("--log_file", dest="log_file", default=LOG_FILE, help=f"Log file path (default: {LOG_FILE})")
     args = parser.parse_args()
 
-    # Reconfigure logging with the provided log file path
-    file_handler = logging.FileHandler(args.log_file)
-    file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
-    logging.getLogger().addHandler(file_handler)
+    # Proper logging configuration
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
+
+    logging.basicConfig(
+        filename=args.log_file,
+        level=logging.INFO,
+        format='%(asctime)s - %(levelname)s - %(message)s'
+    )
 
     os.makedirs(args.items_dir, exist_ok=True)
     

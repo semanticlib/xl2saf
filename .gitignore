@@ -1,5 +1,6 @@
 # Byte-compiled and cache files
 __pycache__/
+__*
 *.pyc
 *.pyo
 *.pyd
