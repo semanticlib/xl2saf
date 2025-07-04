@@ -71,24 +71,27 @@ cd xl2saf
 $ python xl2saf.py -h
 Usage: xl2saf.py [options]
 
-Options:
+options:
   -h, --help            show this help message and exit
-  -f FILE, --input_file=FILE
+  -f, --input_file XLSX_FILE
                         Input XLSX file
-  -b BASE_DIR, --base_dir=BASE_DIR
+  -b, --base_dir BASE_DIR
                         Base directory for full-text files
-  -d ITEMS_DIR, --items_dir=ITEMS_DIR
-                        Output directory for converted files
+  -s, --start START     Start processing from this Excel row (default: 2)
+  -e, --end END         Stop processing at this Excel row (inclusive)
+  -d, --items_dir ITEMS_DIR
+                        Output directory for converted files (default: import)
+  --log_file LOG_FILE   Log file path (default: xl2saf.log)
 
 ```
 
 Try this command for sample data:
 ```bash
-python xl2saf.py -f sample_data/Input.xlsx -b sample_data/fulltext -d items_import
+python xl2saf.py -f sample_data/Input.xlsx -b sample_data/fulltext -d items_import -s 2 -e 10
 ```
 OR
 ```bash
-python xl2saf.py --input_file=sample_data/Input.xlsx --base_dir=sample_data/fulltext --items_dir=items_import
+python xl2saf.py --input_file=sample_data/Input.xlsx --base_dir=sample_data/fulltext --items_dir=items_import --start=2 --end=10
 ```
 
 The above comman should be run for each collection using separate `--input_file` and `--items_dir`.
