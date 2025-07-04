@@ -36,10 +36,10 @@ Check the [sample input file](./sample_data/Input.xlsx) as an example. Prepare s
 git clone https://github.com/semanticlib/xl2saf.git
 cd xl2saf
 
-# Install dependencies globally
+# Install dependencies globally (if having sudo access)
 sudo pip3 install -r requirements.txt
 
-# Install dependencies in virtual environment
+# Alternatively, install dependencies in virtual environment
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
