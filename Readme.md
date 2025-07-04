@@ -5,23 +5,26 @@
 **Excel to DSpace [Simple Archive Format (SAF)](https://wiki.lyrasis.org/pages/viewpage.action?pageId=104566653) conversion script**
 
 #### Dependencies
-Python3 with following dependencies
-- openpyxl
-- lxml
+This script requires Python 3. All dependencies are listed in the `requirements.txt` file.
 
 **Use pip to install dependencies**
 
 On Debian/Ubuntu, following should work:
+```bash
+sudo apt install python3-pip
+sudo pip3 install -r requirements.txt
 ```
-$ sudo apt install python3-pip
-$ pip3 install openpyxl lxml
+Or create venv and install dependencies
+
+On Windows, pip should be part of your Python installation. Just install the dependencies:
+```shell
+C:\> pip install -r requirements.txt
 ```
 
-On Windows, pip3 should already be there. Just install the dependencies:
+#### Usage
+```shell
+python xl2saf.py -h
 ```
-C:\> pip3 install openpyxl lxml
-```
-
 
 ## Prepare Source XLSX/Open Office XML (.xlsx)
 The source files must be in [XLSX/Open Office XML](https://www.loc.gov/preservation/digital/formats/fdd/fdd000398.shtml) format. Most spreadsheet applications, including MS Excel, OpenOffice/LibreOffice Calc and Google Sheets, support export to XLSX format.
@@ -49,28 +52,22 @@ Check the [sample input file](./sample_data/Input.xlsx) as an example. Prepare s
 
 ## Testing
 
-To ensure the script is working correctly, you can run the included tests. First, install the dependencies:
+To ensure the script is working correctly, you can run the included tests. First, install the dependencies. Then, run the tests using the following command:
 
-```
-$ pip install -r requirements.txt
-```
-
-Then, run the tests using the following command:
-
-```
-$ python -m unittest discover
+```bash
+python -m unittest discover
 ```
 
 ## Convert to SAF
 
 **Clone this repository**
-```
-$ git clone https://github.com/semanticlib/xl2saf.git
-$ cd xl2saf
+```bash
+git clone https://github.com/semanticlib/xl2saf.git
+cd xl2saf
 ```
 
 **Run the conversion script**
-```
+```bash
 $ python xl2saf.py -h
 Usage: xl2saf.py [options]
 
@@ -86,12 +83,12 @@ Options:
 ```
 
 Try this command for sample data:
-```
-$ python xl2saf.py -f sample_data/Input.xlsx -b sample_data/fulltext -d collection_12
+```bash
+python xl2saf.py -f sample_data/Input.xlsx -b sample_data/fulltext -d items_import
 ```
 OR
-```
-$ python xl2saf.py --input_file=sample_data/Input.xlsx --base_dir=sample_data/fulltext --items_dir=collection_12
+```bash
+python xl2saf.py --input_file=sample_data/Input.xlsx --base_dir=sample_data/fulltext --items_dir=items_import
 ```
 
 The above comman should be run for each collection using separate `--input_file` and `--items_dir`.
@@ -106,8 +103,9 @@ Compress the output folder into a Zip file to import them using the DSpace web i
 Use the command-line tool for large datasets.
 
 Example command:
-```
-$ [dspace_dir]/bin/dspace import --add --eperson=joe@user.com --collection=1/12 --source=collection_12 --mapfile=mapfile
+```bash
+cd /path/to/dspace
+bin/dspace import --add --eperson=joe@user.com --collection=1/12 --source=items_import --mapfile=mapfile
 ```
 
 Create an issue to report any problem.
