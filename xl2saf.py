@@ -3,6 +3,7 @@ import sys
 import shutil
 import argparse
 import lxml.etree as et
+from tqdm import tqdm
 from openpyxl import load_workbook
 from datetime import datetime
 from utils import parse_header, get_list
@@ -37,12 +38,21 @@ def process_sheet(sheet, base_dir, items_dir):
         print(f"\nSkipping sheet '{sheet.title}': Does not contain a valid header row.")
         return 0
 
-    print(f"\nProcessing sheet '{sheet.title}': Found {sheet.max_row} row(s).")
+    total_rows = sheet.max_row - 1  # Exclude header
+    print(f"\nProcessing sheet '{sheet.title}': Found {total_rows} row(s).")
     md_header = parse_header(sheet[1])
     finished_count = 0
-    for row_key, row in enumerate(sheet.iter_rows(min_row=2)):
-        process_row(row, row_key + 2, md_header, base_dir, items_dir)
+
+    for row_key, row in tqdm(
+        enumerate(sheet.iter_rows(min_row=2), start=2),
+        total=total_rows,
+        desc=f"Sheet: {sheet.title}",
+        unit="row",
+        leave=True
+    ):
+        process_row(row, row_key, md_header, base_dir, items_dir)
         finished_count += 1
+
     return finished_count
 
 def process_row(row, row_num, md_header, base_dir, items_dir):
